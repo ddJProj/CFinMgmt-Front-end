@@ -2,11 +2,10 @@
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 
-
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { ROUTER_CONFIG } from "./constants/router.constants";
-import { fetchSession, getSession } from "./utils/session";
+import { fetchSession, getSession } from "./utils/session.utils";
 
 const App: React.FC = () => {
   const [session, setSession] = useState<{ role: string; permissions: string[] } | null>(null);
@@ -23,25 +22,30 @@ const App: React.FC = () => {
     }
   }, [token]);
 
-  const renderRoute = ({ path, element, isProtected, permissions }: any) => {
-    if (isProtected) {
-      if (!token || !session) {
-        return <Navigate to="/login" />;
-      }
-
-      if (permissions && !permissions.some((perm: string) => session.permissions.includes(perm))) {
-        return <Navigate to="/login" />;
-      }
+const renderRoute = ({ element: Component, isProtected, roles }: any) => {
+  if (isProtected) {
+    if (!token || !session) {
+      return <Navigate to="/login" />;
     }
 
-    return element;
-  };
+    // Check role-based permissions for protected routes
+    if (roles && !roles.some((role: string) => session.role === role)) {
+      return <Navigate to="/unauthorized" />;
+    }
+  }
+
+  return <Component />;
+};
 
   return (
     <Router>
       <Routes>
         {ROUTER_CONFIG.map((route) => (
-          <Route key={route.path} path={route.path} element={renderRoute(route)} />
+          <Route
+            key={route.path}
+            path={route.path}
+            element={renderRoute(route)} // Call renderRoute to render the route element
+          />
         ))}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>

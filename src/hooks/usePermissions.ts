@@ -1,7 +1,6 @@
-
 // src/hooks/usePermissions.ts
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { fetchUserSession } from "../utils/session";
+import { fetchSession } from "../utils/session.utils";
 import { UserRole, Permissions } from "../types/auth.types";
 import { ROLE_PERMISSIONS } from "../utils/permissions.utils";
 
@@ -28,7 +27,7 @@ export function usePermissions(): UsePermissionsResult {
     const token = localStorage.getItem("authToken");
     if (token) {
       setIsLoading(true);
-      fetchUserSession(token)
+      fetchSession(token)
         .then((data) => {
           const userRole = data.role as UserRole;
           setRole(userRole);
