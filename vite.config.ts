@@ -1,11 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Ensure React Router routes fallback to index.html
-    historyApiFallback: true,
+    port: 5173, // default Vite port
   },
+  preview: {
+    port: 5173,
+  },
+  // Base configuration for proper routing
+  base: '/',
 });

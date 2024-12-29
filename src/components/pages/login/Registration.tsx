@@ -3,8 +3,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRegister } from "../../hooks/useRegistration";
-import logo from "../../assets/dd-asset-management-high-resolution-logo-transparent.svg";
+import { useRegister } from "../../../hooks/useRegistration";
+import logo from "../../../assets/dd-asset-management-high-resolution-logo-transparent.svg";
 import { Link } from "react-router-dom";
 
 // schema for validation

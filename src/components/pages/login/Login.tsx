@@ -3,9 +3,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useLogin } from "../../hooks/useLogin";
+import { useLogin } from "../../../hooks/useLogin";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import logo from "../../assets/dd-asset-management-high-resolution-logo-transparent.svg";
+import logo from "../../../assets/dd-asset-management-high-resolution-logo-transparent.svg";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address").nonempty("Email is required"),

@@ -1,5 +1,6 @@
 // src/hooks/useAuth.ts
 import { useState } from "react";
+import { authUtils } from "../utils/auth.utils";
 
 interface AuthResponse {
   token: string;
@@ -7,7 +8,7 @@ interface AuthResponse {
 }
 
 export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(authUtils.isAuthenticated());
   const [authError, setAuthError] = useState<string | null>(null);
 
   const login = async (email: string, password: string): Promise<AuthResponse | null> => {
@@ -26,8 +27,7 @@ export const useAuth = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem("authToken", data.token);
-      localStorage.setItem("userRole", data.role);
+      authUtils.setAuthData(data.token, { role: data.role });
       setIsAuthenticated(true);
       return data;
     } catch (error) {
@@ -38,8 +38,7 @@ export const useAuth = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userRole");
+    authUtils.clearAuthData();
     setIsAuthenticated(false);
   };
 

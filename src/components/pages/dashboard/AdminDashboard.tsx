@@ -2,6 +2,7 @@
 
 import React from "react";
 import { usePermissions } from "../../../hooks/usePermissions";
+import { UserRole, Permissions } from "../../../types/auth.types";
 
 const AdminDashboard: React.FC = () => {
   const { canRender, hasRole, isLoading, error } = usePermissions();
@@ -12,14 +13,13 @@ const AdminDashboard: React.FC = () => {
   return (
     <div>
       <h1>Admin Dashboard</h1>
-
-      {hasRole("Admin") && <p>Welcome, Admin!</p>}
-
-      {canRender(["ModifyClientRoleValues"], (
+      {hasRole(UserRole.Admin) && <p>Welcome, Admin!</p>}
+      
+      {canRender([Permissions.ManageRoles], (
         <button>Modify Client Role</button>
       ))}
 
-      {canRender(["CreateNewUserAccount"], (
+      {canRender([Permissions.ManageUsers], (
         <button>Create New User</button>
       ))}
     </div>
@@ -27,4 +27,3 @@ const AdminDashboard: React.FC = () => {
 };
 
 export default AdminDashboard;
-

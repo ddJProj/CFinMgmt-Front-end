@@ -2,11 +2,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { usePermissions } from "../hooks/usePermissions";
+import { UserRole } from "../types/auth.types";
 
 interface ProtectedRouteProps {
   element: React.ReactElement;
   isProtected: boolean;
-  roles?: string[];
+  roles?: UserRole[]; // Changed from string[] to UserRole[]
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, isProtected, roles }) => {
@@ -14,7 +15,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, isProtected, r
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (isProtected && roles && !roles.some((role) => hasRole(role))) {
+  if (isProtected && roles && !roles.some((role: UserRole) => hasRole(role))) {
     return <Navigate to="/unauthorized" />;
   }
 
@@ -22,4 +23,3 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element, isProtected, r
 };
 
 export default ProtectedRoute;
-

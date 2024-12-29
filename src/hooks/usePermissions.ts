@@ -1,5 +1,5 @@
 // src/hooks/usePermissions.ts
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { fetchSession } from "../utils/session.utils";
 import { UserRole, Permissions } from "../types/auth.types";
 import { ROLE_PERMISSIONS } from "../utils/permissions.utils";

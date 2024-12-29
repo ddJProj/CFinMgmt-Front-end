@@ -1,7 +1,7 @@
 // src/constants/router.constants.ts
 import { UserRole } from "../types/auth.types";
-import Login from "../components/login/Login";
-import Registration from "../components/login/Registration";
+import Login from "../components/pages/login/Login";
+import Registration from "../components/pages/login/Registration";
 import Dashboard from "../components/pages/dashboard/Dashboard";
 import AdminDashboard from "../components/pages/dashboard/AdminDashboard";
 import EmployeeDashboard from "../components/pages/dashboard/EmployeeDashboard";
